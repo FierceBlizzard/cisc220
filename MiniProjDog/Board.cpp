@@ -18,7 +18,7 @@ Board::Board(bool d){
 Board::Board(char diff, string name, bool d) {
 	level = diff;
 	debug = d;
-	//mydog.name = name;
+	mydog.name = name;
 	wallStrength = 6;
 	InitAll();
 }
@@ -34,8 +34,8 @@ void Board::InitAll() {
 		endx = rand() % size;
 		endy = size-1;
 
-		//mydog.x = startx;
-		//mydog.y = starty;
+		mydog.x = startx;
+		mydog.y = starty;
 		boardConfig();
 		addFood();
 		addTraps();
@@ -115,10 +115,13 @@ void Board::boardConfig() {
             }
         }
     }
+
+	board[mydog.x][mydog.y] = 'D'; 
 }
 
 void Board::printBoard() {
 /* (8 pts) code for the printBoard method goes here */
+
 	//top
 	for(int i = 0; i < size-5; i++){
 		cout<<" - ";
@@ -142,5 +145,6 @@ void Board::printBoard() {
 bool Board::moveDog(char c) {
 /* (12 pts) code for the moveDog method goes here
 */
+
 	return c;
 }

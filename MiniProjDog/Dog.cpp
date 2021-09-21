@@ -13,23 +13,25 @@ Dog::Dog(string n){
 }
 
 Dog::Dog(){
-    name = "D"; 
-    strength = 50; 
-    x = 0;
-    y = 0; 
+    Dog("D");
 }
 
 bool Dog::changeStrength(int amt){
-    return false; 
+    strength += amt; 
+    cout<<" Strength: "<<strength;
+    if(strength <= 0){
+        die();
+    }
+    return true; 
 }
 
 void Dog::die(){
-   
+   cout << "You are hit with the BIG SAD cause "<< name << " has died"<<endl; 
 
 }
 
 void Dog::printDog(){
-
+    cout<<"Name: " << name <<" Strength: "<<strength;
 }
 
 void Dog::won(){
@@ -37,5 +39,5 @@ void Dog::won(){
 }
 
 void Dog::reset(){
-    
+    Dog();
 }
