@@ -5,11 +5,18 @@
 using namespace std;
 
 Dog::Dog(string n){
+    name = n; 
+    strength = 50; 
+    x = 0;
+    y = 0; 
 
 }
 
 Dog::Dog(){
-
+    name = "D"; 
+    strength = 50; 
+    x = 0;
+    y = 0; 
 }
 
 bool Dog::changeStrength(int amt){
@@ -17,6 +24,7 @@ bool Dog::changeStrength(int amt){
 }
 
 void Dog::die(){
+   
 
 }
 

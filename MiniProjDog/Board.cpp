@@ -38,7 +38,7 @@ void Board::InitAll() {
 		//mydog.y = starty;
 		boardConfig();
 		addFood();
-		//addTraps();
+		addTraps();
 		printBoard();
 		playGame();
 
@@ -70,41 +70,74 @@ void Board::playGame() {
 
 void Board::addFood() {
 	/* (5 pts) code for the addFood method goes here*/
-	board[rand()%20][rand()%20] = 'F';
+	for(int i = 0; i < size; i++){
+		board[rand()%19][rand()%19] = 'F';
+	}
+	
 }
 void Board::addTraps() {
-/* (5 pts) code for the addTraps method goes here
-*/
+	/* (5 pts) code for the addTraps method goes here*/
+	int trapnum = 0; 
+	if(level == 'e'){
+		trapnum = 6;
+	}else if(level == 'm'){
+		trapnum = 8; 
+	}else{
+		trapnum = 10; 
+	}
+	for(int i = 0; i < trapnum; i++){
+		board[rand()%19][rand()%19] = 'T';
+	}
+
 }
 
 void Board::boardConfig() {
 	for(int i=0;i<size;i++){
-        board[0][i] = '_';
+        for(int j=0;j<size;j++)
+            board[i][j] = ' ';
+    } // board is filled with dummy characters
+    int walls[10];
+    for(int i=0;i<10;i++){
+        walls[i] = rand()%size; //creating random indexes for the walls
     }
-    for(int i=1;i<size-1;i++){
-        for(int j=0;j<size;j++){
-            if(j==0||j==size-1){
-                board[i][j] = '|';
-            }
-            else{
-                board[i][j] = '+';
+
+    int tempindex;
+    for(int i=0;i<10;i++){
+        tempindex=walls[i];
+        if(i%2==1){
+            for(int j=0;j<size;j+=rand()%5){
+                board[j][tempindex] = '|';
             }
         }
-    }
-    for(int i=0;i<size;i++){
-            board[size-1][i] = '_';
+        if(i%2==0){
+            for(int j=0;j<size;j+=rand()%5){
+                    board[tempindex][j] = '-';
+            }
+        }
     }
 }
 
 void Board::printBoard() {
-/* (8 pts) code for the printBoard method goes here 
-*/
+/* (8 pts) code for the printBoard method goes here */
+	//top
+	for(int i = 0; i < size-5; i++){
+		cout<<" - ";
+	}
+	cout<<endl; 
+	//board itself
 	for(int i=1;i<size-1;i++){
+		cout<<"/ ";
         for(int j=0;j<size;j++){
-            cout << board[i][j]; 
+            cout << board[i][j] << " "; 
         }
+		cout<<" /";
 		cout<<endl;
     }
+	//bottom
+	for(int i = 0; i < size-5; i++){
+		cout<<" - ";
+	}
+	cout<<endl;
 }
 bool Board::moveDog(char c) {
 /* (12 pts) code for the moveDog method goes here
