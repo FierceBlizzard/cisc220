@@ -37,7 +37,7 @@ void Board::InitAll() {
 		//mydog.x = startx;
 		//mydog.y = starty;
 		boardConfig();
-		//addFood();
+		addFood();
 		//addTraps();
 		printBoard();
 		playGame();
@@ -69,8 +69,8 @@ void Board::playGame() {
 }
 
 void Board::addFood() {
-/* (5 pts) code for the addFood method goes here
-*/
+	/* (5 pts) code for the addFood method goes here*/
+	board[rand()%20][rand()%20] = 'F';
 }
 void Board::addTraps() {
 /* (5 pts) code for the addTraps method goes here

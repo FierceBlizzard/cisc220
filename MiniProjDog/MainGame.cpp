@@ -6,6 +6,9 @@
 
 using namespace std;
 
+//clang++-7 -pthread -std=c++17 -o main Board.cpp Dog.cpp MainGame.cpp
+//to run code
+//then ./main
 
 int main() {
 	srand(time(NULL));
