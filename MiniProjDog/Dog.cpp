@@ -13,7 +13,8 @@ Dog::Dog(string n){
 }
 
 Dog::Dog(){
-    Dog("D");
+    Dog("Doggo");
+    strength = 50; 
 }
 
 bool Dog::changeStrength(int amt){
@@ -31,7 +32,7 @@ void Dog::die(){
 }
 
 void Dog::printDog(){
-    cout<<"Name: " << name <<" Strength: "<<strength;
+    cout<<"Name: " << name <<" Strength: "<<strength<<endl;
 }
 
 void Dog::won(){

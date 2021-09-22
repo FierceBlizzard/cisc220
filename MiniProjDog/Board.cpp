@@ -34,6 +34,8 @@ void Board::InitAll() {
 		endx = rand() % size;
 		endy = size-1;
 
+		mydog.strength = 50; 
+
 		mydog.x = startx;
 		mydog.y = starty;
 		boardConfig();
@@ -58,11 +60,13 @@ void Board::InitAll() {
 void Board::playGame() {
 	bool play = true;
 	while (play) {
+		mydog.printDog();
+		cout << endl;
 		cout << "Move (u, d, l, r) "<<endl;
 		char c;
 		cin >> c;
-		//play = moveDog(c);
-		printBoard();
+		play = moveDog(c);
+		printBoard(); 
 	}
 
 
@@ -70,8 +74,18 @@ void Board::playGame() {
 
 void Board::addFood() {
 	/* (5 pts) code for the addFood method goes here*/
-	for(int i = 0; i < size; i++){
-		board[rand()%19][rand()%19] = 'F';
+	if(level == 'e'){
+		for(int i = 0; i < size; i++){
+			board[(rand()%18)+1][(rand()%18)+1] = 'F';
+		}
+	}else if(level == 'm'){
+		for(int i = 0; i < size-2; i++){
+			board[(rand()%18)+1][(rand()%18)+1] = 'F';
+		}
+	}else{
+		for(int i = 0; i < size-4; i++){
+			board[(rand()%18)+1][(rand()%18)+1] = 'F';
+		}
 	}
 	
 }
@@ -79,14 +93,14 @@ void Board::addTraps() {
 	/* (5 pts) code for the addTraps method goes here*/
 	int trapnum = 0; 
 	if(level == 'e'){
-		trapnum = 6;
+		trapnum = size-6;
 	}else if(level == 'm'){
-		trapnum = 8; 
+		trapnum = size-8; 
 	}else{
-		trapnum = 10; 
+		trapnum = size-10; 
 	}
 	for(int i = 0; i < trapnum; i++){
-		board[rand()%19][rand()%19] = 'T';
+		board[(rand()%18)+1][(rand()%18)+1] = 'T';
 	}
 
 }
@@ -143,8 +157,49 @@ void Board::printBoard() {
 	cout<<endl;
 }
 bool Board::moveDog(char c) {
-/* (12 pts) code for the moveDog method goes here
-*/
+	/* (12 pts) code for the moveDog method goes here*/
+	board[mydog.x][mydog.y] = ' ';
+	char ans;
+	if(c == 'r'){
+		mydog.y++; 
+	}
+	if(c == 'l'){
+		mydog.y--; 
+	}
+	if(c == 'u'){
+		mydog.x--; 
+	}
+	if(c == 'd'){
+		mydog.x++; 
+	}
+	if(board[mydog.x][mydog.y] == 'T'){
+		mydog.changeStrength((-1)*((rand()%15)+2));
+	}
+	if(board[mydog.x][mydog.y] == 'F'){
+		mydog.changeStrength(((rand()%15)+2));
+	}
+	if(board[mydog.x][mydog.y] == '|' || board[mydog.x][mydog.y] == '-'){
+		cout << "Do you want to knock down that wall, it costs 6 strength?(y/n)"<<endl;
+		cin >> ans;
+		if(ans == 'y'){
+			mydog.changeStrength(-6);
+		}
+		if(ans == 'n'){
+			if(c == 'r'){
+				mydog.y--; 
+			}
+			if(c == 'l'){
+				mydog.y++; 
+			}
+			if(c == 'u'){
+				mydog.x++; 
+			}
+			if(c == 'd'){
+				mydog.x--; 
+			}
+		}
+	}
+	board[mydog.x][mydog.y] = 'D';
 
 	return c;
 }
